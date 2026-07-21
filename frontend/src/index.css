@@ -1,0 +1,213 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #14213d;
+  background: #f7f7ef;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f7f7ef 0%, #e9f4e3 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.hero {
+  background: linear-gradient(120deg, #2f6f3e 0%, #5a9b4c 100%);
+  color: white;
+  padding: 32px;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(47, 111, 62, 0.16);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 0.78rem;
+  opacity: 0.8;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.hero-copy {
+  margin: 8px 0 0;
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.stat-card {
+  border-radius: 18px;
+  padding: 18px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.stat-card p {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.stat-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.stat-card.accent {
+  border-top: 4px solid #2f6f3e;
+}
+
+.stat-card.income {
+  border-top: 4px solid #16a34a;
+}
+
+.stat-card.expense {
+  border-top: 4px solid #dc2626;
+}
+
+.stat-card.profit {
+  border-top: 4px solid #0f766e;
+}
+
+.stat-card.livestock {
+  border-top: 4px solid #a16207;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 20px;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.record-form {
+  display: grid;
+  gap: 12px;
+}
+
+.record-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.record-form input,
+.record-form select,
+.record-form button {
+  border-radius: 10px;
+  border: 1px solid #dbe4d0;
+  padding: 10px 12px;
+}
+
+.record-form button {
+  background: #2f6f3e;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.message {
+  margin-top: 12px;
+  color: #0f766e;
+  font-weight: 600;
+}
+
+.activity-list,
+.record-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.activity-list li,
+.record-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f1eb;
+}
+
+.record-list strong {
+  display: block;
+}
+
+.record-list p {
+  margin: 4px 0 0;
+  color: #64748b;
+}
+
+.record-list span.income {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.record-list span.expense {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.empty {
+  color: #64748b;
+  margin: 6px 0 16px;
+}
+
+.recent-header {
+  margin-top: 16px;
+}
+
+@media (max-width: 860px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
