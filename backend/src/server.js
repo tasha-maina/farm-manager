@@ -13,10 +13,19 @@ dotenv.config();
 
 const app = express();
 const PORT = Number(process.env.PORT || 4000);
-const corsOrigin = process.env.CORS_ORIGIN?.split(',').map((origin) => origin.trim()).filter(Boolean) || true;
+const corsOrigin = process.env.CORS_ORIGIN?.split(',').map((origin) => origin.trim()).filter(Boolean) || '*';
 
-app.use(cors({ origin: corsOrigin }));
+app.use(cors({
+  origin: corsOrigin === '*' ? true : corsOrigin,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 app.use(express.json({ limit: '15mb' }));
+
+app.get('/', (_req, res) => {
+  res.json({ ok: true, message: 'Smart Farm Manager API is running smoothly' });
+});
 
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, message: 'Smart Farm Manager API is running smoothly' });

@@ -741,6 +741,95 @@ function migrateMilkCategories() {
   if (changed) saveDB();
 }
 
+function cleanDuplicateMilkIncome() {
+  if (!Array.isArray(db.records)) db.records = [];
+  const before = db.records.length;
+  db.records = db.records.filter(r => !r.milk_delivery_ref);
+  if (db.records.length !== before) {
+    saveDB();
+    console.log('Cleaned up legacy duplicate milk delivery income records');
+  }
+}
+
+let recordSearchTerm = '';
+function handleRecordSearch(val) {
+  recordSearchTerm = (val || '').trim().toLowerCase();
+  renderRecords(activeFilter);
+}
+
+function getMilkCreditOwed() {
+  mbEnsure();
+  let total = 0;
+  (db.milkCustomers || []).forEach(c => {
+    const bal = custBalance(c.id);
+    total += Math.max(0, bal.owed);
+  });
+  return total;
+}
+
+function getLoansOwed() {
+  const loans = (db.records || []).filter(r => r.type === 'loan');
+  const loanPaid = (db.records || []).filter(r => r.type === 'expense' && r.category === 'Finance' && r.label === 'Loan Payment');
+  const totalBorrowed = loans.reduce((s, r) => s + (Number(r.amount) || 0), 0);
+  const totalRepaid = loanPaid.reduce((s, r) => s + (Number(r.amount) || 0), 0);
+  return Math.max(0, totalBorrowed - totalRepaid);
+}
+
+let isBackendOnline = false;
+function getApiBaseUrl() {
+  return localStorage.getItem('farm_api_url') || (location.hostname === 'localhost' || location.hostname === '127.0.0.1' ? 'http://localhost:4000/api' : '/api');
+}
+
+async function checkBackendSync() {
+  const apiUrl = getApiBaseUrl();
+  try {
+    const res = await fetch(apiUrl + '/health', { signal: AbortSignal.timeout(2000) });
+    if (res.ok) {
+      isBackendOnline = true;
+      updateSyncBadge(true);
+      return;
+    }
+  } catch (e) {}
+  isBackendOnline = false;
+  updateSyncBadge(false);
+}
+
+function updateSyncBadge(online) {
+  const badge = document.getElementById('sync-status-badge');
+  if (!badge) return;
+  if (online) {
+    badge.className = 'sync-badge online';
+    badge.innerHTML = '🟢 Live Sync';
+    badge.style.background = 'rgba(30, 158, 117, 0.4)';
+  } else {
+    badge.className = 'sync-badge offline';
+    badge.innerHTML = '⚡ Offline';
+    badge.style.background = 'rgba(255, 255, 255, 0.18)';
+  }
+}
+
+async function triggerManualSync() {
+  const current = localStorage.getItem('farm_api_url') || '';
+  const promptVal = prompt('Enter your Backend API URL (or leave blank for offline mode):', current);
+  if (promptVal !== null) {
+    const cleanUrl = promptVal.trim().replace(/\/+$/, '');
+    if (cleanUrl) {
+      localStorage.setItem('farm_api_url', cleanUrl);
+      showToast('Connecting to: ' + cleanUrl);
+    } else {
+      localStorage.removeItem('farm_api_url');
+      showToast('Switched to local offline mode');
+    }
+    await checkBackendSync();
+    if (isBackendOnline) {
+      showToast('🟢 Connected to Smart Farm API!');
+    } else {
+      showToast('⚡ Operating in Offline Mode');
+    }
+  }
+}
+
+
 function ensureOpeningData() {
   if (!db.openingCapital) db.openingCapital = { start_date: '', cash: 0, invested: 0, notes: '' };
   if (!Array.isArray(db.openingAssets)) db.openingAssets = [];
