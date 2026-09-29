@@ -31,7 +31,11 @@ app.use('/api/ai', aiRouter);
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Smart Farm Manager API listening on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Smart Farm Manager API listening on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
 

@@ -2,10 +2,16 @@
   "name": "farm-manager",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "Smart Farm Manager - Complete offline-first mobile & desktop farm records app",
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
     "dev": "cd frontend && npm run dev",
     "server": "cd backend && npm start"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
   }
 }

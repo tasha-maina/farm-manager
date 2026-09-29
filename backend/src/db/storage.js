@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const dataDir = process.env.DATA_DIR ? path.resolve(process.cwd(), process.env.DATA_DIR) : path.resolve(process.cwd(), 'data');
+const defaultDataDir = process.env.VERCEL ? '/tmp/data' : path.resolve(process.cwd(), 'data');
+const dataDir = process.env.DATA_DIR ? path.resolve(process.cwd(), process.env.DATA_DIR) : defaultDataDir;
 const dataFile = path.join(dataDir, 'db.json');
 
 const defaultDB = {
