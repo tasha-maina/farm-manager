@@ -1,0 +1,20 @@
+{
+  "records": [],
+  "milkCustomers": [],
+  "milkDeliveries": [],
+  "milkPayments": [],
+  "openingCapital": {
+    "start_date": "2026-09-29",
+    "cash": 0,
+    "invested": 0,
+    "notes": ""
+  },
+  "openingAssets": [],
+  "livestock": [],
+  "loans": [],
+  "settings": {
+    "farm_name": "Smart Farm",
+    "owner": "Farmer",
+    "currency": "KSh"
+  }
+}

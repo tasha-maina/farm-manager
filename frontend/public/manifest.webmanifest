@@ -1,0 +1,23 @@
+{
+  "name": "Farm Manager - General Farm Record",
+  "short_name": "Farm Manager",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F6F8F3",
+  "theme_color": "#3B6D11",
+  "description": "Mobile farm record app for production, operations, expenses, income, assets and milk records.",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
