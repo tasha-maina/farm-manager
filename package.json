@@ -1,0 +1,11 @@
+{
+  "name": "farm-manager",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Smart Farm Manager - Complete offline-first mobile & desktop farm records app",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "cd frontend && npm run dev",
+    "server": "cd backend && npm start"
+  }
+}
